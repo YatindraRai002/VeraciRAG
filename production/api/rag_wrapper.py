@@ -23,15 +23,33 @@ class ProductionRAG:
     def __init__(self, model_name: str = "mistral"):
         """Initialize the RAG system"""
         self.model_name = model_name
-        self.llm = OllamaLLM(model=model_name, temperature=0.1)
-        self.embeddings = OllamaEmbeddings(model=model_name)
-        self.vectorstore = None
+        self.available = False
         
-        # Initialize with default knowledge base
-        self._initialize_default_knowledge()
+        try:
+            # Try to initialize Ollama connection
+            self.llm = OllamaLLM(model=model_name, temperature=0.1)
+            self.embeddings = OllamaEmbeddings(model=model_name)
+            self.vectorstore = None
+            
+            # Test connection
+            self.llm.invoke("test")
+            
+            # Initialize with default knowledge base
+            self._initialize_default_knowledge()
+            self.available = True
+        except Exception as e:
+            # Ollama not available - run in degraded mode
+            print(f"Warning: Failed to initialize Ollama: {e}")
+            print("Running in degraded mode - RAG features disabled")
+            self.llm = None
+            self.embeddings = None
+            self.vectorstore = None
     
     def _initialize_default_knowledge(self):
         """Initialize with default AI/ML knowledge base"""
+        if not self.available:
+            return
+            
         default_docs = [
             "Machine learning is a subset of artificial intelligence that enables systems to learn from data and improve from experience without being explicitly programmed.",
             "Deep learning is a subset of machine learning that uses neural networks with multiple layers to learn complex patterns in large amounts of data.",
@@ -61,6 +79,9 @@ class ProductionRAG:
             documents: List of document texts
             metadatas: Optional list of metadata dictionaries
         """
+        if not self.available:
+            raise RuntimeError("RAG system not available - Ollama not running")
+            
         # Create documents with metadata
         docs = []
         for i, doc_text in enumerate(documents):
@@ -84,12 +105,12 @@ class ProductionRAG:
         Returns:
             Dictionary containing answer, confidence, sources, and metadata
         """
-        if self.vectorstore is None:
+        if not self.available or self.vectorstore is None:
             return {
-                "answer": "Knowledge base not initialized",
+                "answer": "RAG system not available - Ollama not running. Please install and start Ollama to enable RAG features.",
                 "confidence": 0.0,
                 "sources": [],
-                "metadata": {"error": "No vectorstore"}
+                "metadata": {"error": "RAG system unavailable", "degraded_mode": True}
             }
         
         # Retrieve relevant documents

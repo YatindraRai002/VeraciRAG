@@ -93,7 +93,12 @@ async def startup_event():
         if SimpleOllamaRAG:
             logger.info("Initializing RAG system...")
             rag_system = SimpleOllamaRAG()
-            logger.info("✅ RAG system initialized successfully")
+            
+            if hasattr(rag_system, 'available') and rag_system.available:
+                logger.info("✅ RAG system initialized successfully")
+            else:
+                logger.warning("⚠️ RAG system in degraded mode - Ollama not available")
+                logger.warning("Server will start but RAG features are disabled")
         else:
             logger.warning("⚠️ RAG system not available, using mock mode")
         
