@@ -27,7 +27,8 @@ tqdm>=4.65.0
 requests>=2.31.0
 datasets>=2.16.1
 
-# Production API (optional - for production deployment)
+# Production API (for production deployment)
 fastapi>=0.104.1
 uvicorn[standard]>=0.24.0
 pydantic>=2.5.0
+gunicorn>=21.2.0
