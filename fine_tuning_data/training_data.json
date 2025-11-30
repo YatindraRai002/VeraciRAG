@@ -1,0 +1,20 @@
+{
+  "base_model": "mistral",
+  "custom_name": "data-science-specialist",
+  "created": "2025-11-30T17:54:26.910354",
+  "num_examples": 3,
+  "training_data": [
+    {
+      "input": "Choose ML algorithm",
+      "output": "I'll recommend algorithms based on your data type, problem, and constraints."
+    },
+    {
+      "input": "Explain model metrics",
+      "output": "I'll clarify accuracy, precision, recall, F1-score, and when to use each."
+    },
+    {
+      "input": "Prevent overfitting",
+      "output": "I'll suggest regularization, cross-validation, and data augmentation techniques."
+    }
+  ]
+}

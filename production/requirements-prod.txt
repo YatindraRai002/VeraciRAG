@@ -1,0 +1,15 @@
+# Production requirements
+# Add these to your requirements.txt
+
+# API Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# Existing dependencies (keep from original requirements.txt)
+langchain==0.1.0
+langchain-community==0.0.10
+langchain-ollama==0.0.1
+datasets==2.16.1
+faiss-cpu==1.7.4
+python-dotenv==1.0.0

@@ -1,0 +1,154 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-system
+  labels:
+    app: rag-system
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rag-system
+  template:
+    metadata:
+      labels:
+        app: rag-system
+        version: v1
+    spec:
+      containers:
+      - name: rag-api
+        image: your-registry/rag-system:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        - containerPort: 11434
+          name: ollama
+          protocol: TCP
+        env:
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: PRODUCTION_MODE
+          value: "true"
+        - name: ENABLE_API_AUTH
+          value: "true"
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        volumeMounts:
+        - name: data
+          mountPath: /app/production/data
+        - name: logs
+          mountPath: /app/production/logs
+        - name: ollama-models
+          mountPath: /root/.ollama
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: rag-data-pvc
+      - name: logs
+        persistentVolumeClaim:
+          claimName: rag-logs-pvc
+      - name: ollama-models
+        persistentVolumeClaim:
+          claimName: rag-ollama-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-service
+  labels:
+    app: rag-system
+spec:
+  type: LoadBalancer
+  selector:
+    app: rag-system
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  - port: 11434
+    targetPort: 11434
+    protocol: TCP
+    name: ollama
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rag-data-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rag-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rag-ollama-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: rag-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: rag-system
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

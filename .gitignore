@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment & Secrets (SECURITY CRITICAL)
+.env
+.env.*
+!.env.example
+.venv
+*.key
+*.pem
+*.p12
+secrets/
+credentials/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ChromaDB
+chroma_db/
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & Sensitive Data
+*.log
+*.log.*
+training_results/*.json
+!training_results/.gitkeep
+embeddings/
+*.pkl
+*.pickle
+
+# Temporary & Cache
+*.tmp
+*.temp
+*.cache
+.pytest_cache/
+.mypy_cache/

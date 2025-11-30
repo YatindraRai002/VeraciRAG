@@ -1,0 +1,106 @@
+{
+  "files": {
+    "config.py": {
+      "exists": false,
+      "description": "Configuration",
+      "size": 0
+    },
+    "README.md": {
+      "exists": true,
+      "description": "Main README",
+      "size": 330
+    },
+    "PROJECT_STRUCTURE.md": {
+      "exists": false,
+      "description": "Structure guide",
+      "size": 0
+    },
+    "examples/launcher.py": {
+      "exists": false,
+      "description": "All-in-one menu interface",
+      "size": 0
+    },
+    "examples/simple_ollama_rag.py": {
+      "exists": false,
+      "description": "Basic Ollama RAG",
+      "size": 0
+    },
+    "examples/rag_system.py": {
+      "exists": false,
+      "description": "Self-correcting RAG",
+      "size": 0
+    },
+    "scripts/training/local_training.py": {
+      "exists": false,
+      "description": "Main training (recommended)",
+      "size": 0
+    },
+    "scripts/training/offline_training.py": {
+      "exists": false,
+      "description": "Offline training",
+      "size": 0
+    },
+    "scripts/training/free_training.py": {
+      "exists": false,
+      "description": "Free training framework",
+      "size": 0
+    },
+    "scripts/models/fine_tune_ollama.py": {
+      "exists": false,
+      "description": "Core fine-tuning system",
+      "size": 0
+    },
+    "scripts/models/create_presets.py": {
+      "exists": false,
+      "description": "Preset creator",
+      "size": 0
+    },
+    "scripts/models/demo_models.py": {
+      "exists": false,
+      "description": "Model demo tool",
+      "size": 0
+    },
+    "scripts/utils/verify_setup.py": {
+      "exists": false,
+      "description": "This verification script",
+      "size": 0
+    },
+    "scripts/utils/security_audit.py": {
+      "exists": false,
+      "description": "Security audit",
+      "size": 0
+    },
+    "docs/README.md": {
+      "exists": false,
+      "description": "Main documentation",
+      "size": 0
+    },
+    "docs/SECURITY.md": {
+      "exists": false,
+      "description": "Security guide",
+      "size": 0
+    },
+    "docs/TRAINING_REPORT.md": {
+      "exists": false,
+      "description": "Training report",
+      "size": 0
+    }
+  },
+  "ollama": {
+    "installed": true,
+    "version": "ollama version is 0.13.0"
+  },
+  "models": {
+    "list": [
+      "gemma3:1b",
+      "data-science-specialist:latest",
+      "code-assistant:latest",
+      "business-analyst:latest",
+      "research-assistant:latest",
+      "custom-ml-assistant:latest",
+      "mistral:latest"
+    ],
+    "count": 7
+  },
+  "overall": true
+}

@@ -1,0 +1,115 @@
+{
+  "timestamp": "2025-11-30T21:36:58.578155",
+  "baseline_accuracy": 0.6,
+  "final_accuracy": 0.0,
+  "improvement": -0.6,
+  "improvement_percentage": -100.0,
+  "training_size": 70,
+  "augmented_size": 152,
+  "test_size": 15,
+  "training_history": {
+    "iterations": [
+      1,
+      2,
+      3
+    ],
+    "val_accuracy": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "test_accuracy": []
+  },
+  "test_results": [
+    {
+      "question": "Which transcription factor is considered as a master regulator of lysosomal genes?",
+      "predicted": " The provided context does not contain information about a transcription factor that is considered as a master regulator of lysosomal genes. The questions and answers in the context are related to enzymes targeted by drugs (Imetelstat) and fusion proteins involved in Ewing sarcoma development, but no information about lysosomal gene regulation is provided.\n\nFor reference, a transcription factor that regulates lysosomal genes is EBTF (E26 transformation-specific transcription factor), also known as ETS-related gene ERG.",
+      "expected": "Transcription factor EB (TFEB) is a master regulator of lysosomal biogenesis and autophagy, driving lysosome adaptation to environmental cues, such as starvation, and therefore targeting of TFEB may provide a novel therapeutic strategy for modulating lysosomal function in human disease.",
+      "correct": false
+    },
+    {
+      "question": "Which antibiotics target peptidoglycan biosynthesis?",
+      "predicted": " The question you've asked is not related to the context provided, which discusses mitochondrial diseases associated with POLG mutations. To answer your question, antibiotics that target peptidoglycan biosynthesis include beta-lactams such as penicillin and cephalosporins, aminoglycosides like gentamicin, and macrolides like erythromycin. These classes of antibiotics are essential for treating bacterial infections by inhibiting the synthesis of peptidoglycan, a key component of bacterial cell walls.",
+      "expected": "Under some conditions, both ramoplanin and vancomycin probes produce helicoid staining patterns along the cylindrical walls of B. subtilis cells. This work has implications for the design of ramoplanin derivatives and may influence how other proposed substrate binding antibiotics are studied. This was confirmed by in vitro studies involving a wall-membrane particulate fraction from Gaffkya homari in which peptidoglycan synthesis from UDP-MurNAc-tetrapeptide was inhibited by ramoplanin but not by vancomycin. New results support a two-state model for septal and peripheral PG synthesis at mid-cell, involvement of essential cell division proteins in PG remodeling, and mid-cell localization of proteins that organize PG biosynthesis and that form the protein translocation apparatus.",
+      "correct": false
+    },
+    {
+      "question": "Can Levoxyl (levothyroxine sodium) cause insomnia?",
+      "predicted": " While the question is about Levoxyl (levothyroxine sodium), not metformin, there is no direct link established in the provided context between Levoxyl and insomnia. Insomnia can be a side effect of thyroid hormone replacement therapy, but it's not specific to Levoxyl. It's always best to consult with a healthcare professional for accurate information regarding medication side effects.",
+      "expected": "Levoxyl monotherapy is associated with increased insomnia compared to a combination of levothyroxine and liothyronine.",
+      "correct": false
+    },
+    {
+      "question": "Is fatigue prevalent in patients receiving treatment for glioblastoma?",
+      "predicted": " The given context does not provide information about fatigue in patients receiving treatment for glioblastoma. Therefore, I cannot definitively answer whether fatigue is prevalent in such patients based solely on this context.",
+      "expected": "Yes, fatigue is a common complication of glioblastoma patients receiving chemotherapy or radiotherapy.",
+      "correct": false
+    },
+    {
+      "question": "List two common features of Tay syndrome.",
+      "predicted": " The question asks for common features of Tay Syndrome, not Hemolytic Uremic Syndrome (HUS). Here are the characteristics of Tay Syndrome:\n\n1. Pigmentary retinopathy: This is a condition where there's an abnormal accumulation of pigment in the retina, leading to vision problems.\n2. Mental retardation: Individuals with Tay Syndrome often have intellectual disabilities or developmental delays.\n\nHemolytic Uremic Syndrome (HUS) is a different condition characterized by three main features:\n\n1. Hemolysis (destruction of red blood cells)\n2. Thrombocytopenia (low platelet count)\n3. Acute renal failure (kidney damage)",
+      "expected": "Tay syndrome is a rare autosomal recessive genetic disorder characterized by congenital ichthyosis and trichothiodystrophy (abnormal brittle hair). Other less common features of this syndrome are photosensitivity, low birth weight, short stature, mental retardation, delayed neuromuscular development and other CNS anomalies, dysplasia of nails, hypoplasia of subcutaneous fatty tissue, prematurely aged facial appearance, hypogonadism, cataracts, osteosclerosis, dysphonia, and increased susceptibility to infections.",
+      "correct": false
+    },
+    {
+      "question": "Which cell types are known to be driving Rheumatoid Arthritis?",
+      "predicted": " The provided context does not provide information about the cells driving Rheumatoid Arthritis. Rheumatoid Arthritis is an autoimmune disease and is not directly related to peripheral neuroepithelioma or Ewing sarcoma, which are types of tumors. To answer your question, the cells driving Rheumatoid Arthritis are primarily immune cells such as T cells, B cells, and macrophages.",
+      "expected": "Macrophages, T cells and their respective cytokines play a pivotal role in RA. Rheumatoid arthritis synovial fibroblasts (RASFs) constitute a quite unique cell type that distinguishes RA from other inflammatory conditions of the joints. Activated synovial fibroblasts (SFs) have the ability to invade joint cartilage, actively contributing to joint destruction in RA.",
+      "correct": false
+    },
+    {
+      "question": "What is the association between personality trait of neuroticism and risk for Alzheimer's disease?",
+      "predicted": " The provided context does not provide information about the association between personality trait of neuroticism and risk for Alzheimer's disease. However, research suggests that higher levels of neuroticism may be associated with an increased risk of developing cognitive decline and dementia, including Alzheimer's disease, but more studies are needed to confirm this relationship.",
+      "expected": "High neuroticism is associated with increased risk to develop Alzheimer's disease. Greater neuroticism is also associated more advanced Alzheimer's disease neuropathology and younger age of dementia onset. Neuroticism's association with late-life dementia mainly reflects vulnerability to stress and anxiety. Neuroticism moderates the relationship between APOE-4 genotype and cognitive outcomes in elderly. Neuroticism also predicts Mild Cognitive Impairment, Aging-Associated Cognitive Decline and cognitive decline among elderly. Alzheimer's disease patients have greater neuroticism relative to controls.",
+      "correct": false
+    },
+    {
+      "question": "What is the mode of action of everolimus?",
+      "predicted": " The provided context does not contain information about the mode of action of everolimus. However, everolimus is an immunosuppressant and mTOR inhibitor, often used in treatments for certain types of cancer and to prevent organ rejection after transplantation. It works by blocking the action of a protein called mammalian target of rapamycin (mTOR), which helps control cell division, growth, and survival.",
+      "expected": "Everolimus is a drug that binds to mTORC1 and inhibits activation of the mTOR signalling pathway. It is used in targeted cancer therapy protocols or after transplantation for maintenance immunosuppression, against allograft rejection.",
+      "correct": false
+    },
+    {
+      "question": "Have Quantitative Trait Loci affecting splicing (splicing QTLs) been linked to disease?",
+      "predicted": " While the main focus of your question is not directly about long non-coding RNAs (lncRNAs), it's important to note that understanding splicing QTLs (Quantitative Trait Loci affecting splicing) can provide insights into disease mechanisms, as alterations in splicing patterns have been associated with various diseases. However, whether specific splicing QTLs related to lncRNAs have been linked to disease requires further research and investigation.",
+      "expected": "Yes, mutations in the DNA that affect the splicing pattern of genes have been linked in transcriptome population studies to a number of diseases.",
+      "correct": false
+    },
+    {
+      "question": "Which technique is used for detection of EWS/FLI1 fusion transcripts?",
+      "predicted": " The provided context does not contain information about the technique used for detecting EWS/FLI1 fusion transcripts. However, it focuses on POLG mutations and their association with mitochondrial diseases. To find an answer to your question, you may need to consult a different source or context related to gene fusions and diagnostic techniques.",
+      "expected": "Molecular detection of EWS-FLI1 chimeric transcripts in Ewing family tumors is carried out by reverse transcription-polymerase chain reaction (RT-PCR).",
+      "correct": false
+    },
+    {
+      "question": "Does the CTCF protein co-localize with cohesin?",
+      "predicted": " The provided context does not directly address the question about the co-localization of the CTCF protein with cohesin. However, it's important to note that the context is focused on long non-coding RNAs (lncRNAs) and their splicing, not the interaction between proteins like CTCF and cohesin. To answer your question, research on the role of CTCF protein often involves studying its interactions with other proteins, including cohesin, in various biological processes such as chromatin organization and gene regulation. Therefore, it is generally accepted that CTCF does co-localize with cohesin in many cellular contexts. For a more accurate and detailed answer, I would recommend consulting relevant scientific literature or speaking with a biomedical researcher specializing in this area.",
+      "expected": "Recent genome-wide studies mapping the binding sites of CTCF and its interacting partner, cohesin, using chromatin immunoprecipitation coupled with deep sequencing (ChIP-seq) revealded that CTCF globally co-localizes with cohesin.",
+      "correct": false
+    },
+    {
+      "question": "What is the application of the Bimolecular Fluorescence Complementation (BiFC) assay in Drosophila embryos?",
+      "predicted": " The question about the Biomolecular Fluorescence Complementation (BiFC) assay in Drosophila embryos is not directly related to the Human Chromosome-centric Proteome Project (C-HPP). However, the BiFC assay is a powerful tool used in molecular biology for studying protein-protein interactions within living cells. In the context of Drosophila embryos, it can help researchers understand the spatial and temporal dynamics of specific protein interactions during development. This information can contribute to our understanding of various biological processes, including cell signaling, gene regulation, and cellular organization.",
+      "expected": "Bimolecular fluorescence complementation (BiFC) is a powerful method for studying protein-protein interactions in different cell types and organisms. This method was recently developed in the fruit fly Drosophila melanogaster, allowing analyzing protein interaction properties in a physiologically relevant developing context.",
+      "correct": false
+    },
+    {
+      "question": "Which pathological condition of the heart is known as hypertrophic cardiomyopathy (HCM)?",
+      "predicted": " Hypertrophic Cardiomyopathy (HCM) is a pathological condition of the heart characterized by abnormal thickening of the heart muscle.",
+      "expected": "Hypertrophic cardiomyopathy (HCM) has been recently recognized as the most common inherited cardiovascular disorder, affecting 1 in 500 adults worldwide. HCM is characterized by myocyte hypertrophy resulting in thickening of the ventricular wall, myocyte disarray, interstitial and/or replacement fibrosis, decreased ventricular cavity volume and diastolic dysfunction. HCM is also the most common cause of sudden death in the young particularly among athletes. A large proportion of patients diagnosed with HCM have mutations in sarcomeric proteins. HCM is the most prevalent genetic disorder affecting the heart and is typically inherited in an autosomal dominant pattern. Adults with cardiomyopathy suffer SCD or adverse events such as stroke and heart failure from HCM.",
+      "correct": false
+    },
+    {
+      "question": "What is the genetic basis of Rubinstein-Taybi syndrome?",
+      "predicted": " The genetic basis of Rubinstein-Taybi syndrome is not directly mentioned in the provided context. However, it's known that Rubinstein-Taybi syndrome is caused by mutations in the EPHB1 or CREBBP genes, which are not related to the Brain-lung-thyroid syndrome or Ewing sarcoma.",
+      "expected": "Rubinstein-Taybi syndrome (RTS) is a rare autosomal dominant disorder (prevalence 1:125,000) characterised by broad thumbs and halluces, facial dysmorphism, psychomotor development delay, skeletal defects, abnormalities in the posterior fossa and short stature. The known genetic causes are a microdeletion at 16p13.3 or mutations or deletions of the cAMP-response element binding protein-BP (CREBBP) (50-60% of the cases) and of the homologous gene E1A-binding protein (EP300) at 22q13 (5%). Direct sequencing of CREBBP performed in 13 RSTS patients identified the three zinc fingers (CH1, CH2, CH3) and HAT domain as mutational hotspots. Thus about 55% of patients have cytogenetic or molecular abnormalities in the Crebbp or E1A binding protein p300 (Ep300) gene, leaving the diagnosis in 45% of patients to rest on clinical features only.",
+      "correct": false
+    },
+    {
+      "question": "What is the function of the viral KP4 protein?",
+      "predicted": " The given context does not provide information about the function of the viral KP4 protein. The question and answers are not related in this context.",
+      "expected": "The virally encoded fungal toxin KP4  specifically blocks L-type voltage-gated calcium channels.",
+      "correct": false
+    }
+  ]
+}
