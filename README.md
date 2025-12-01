@@ -617,11 +617,6 @@ Full dependencies in [`requirements.txt`](requirements.txt)
 
 ---
 
-## 📄 License
-
-[Your License Here]
-
----
 
 ## 🙏 Acknowledgments
 
@@ -638,9 +633,39 @@ If you find this project useful, please ⭐ star it on GitHub!
 
 ---
 
-**Made with ❤️ and 100% local processing**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **Last Updated:** November 30, 2025
-#   V e r a c i R A G 
- 
- 
+#
