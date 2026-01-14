@@ -1,0 +1,104 @@
+# ==============================================================================
+# VeraciRAG - Docker Compose Configuration
+# ==============================================================================
+# Production-ready deployment with all services
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # Main API Service
+  veracirag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: veracirag-api
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - API_SECRET_KEY=${API_SECRET_KEY:-change_me_in_production}
+      - ENABLE_API_AUTH=${ENABLE_API_AUTH:-true}
+      - RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE:-60}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
+      - LLM_MODEL=${LLM_MODEL:-llama-3.3-70b-versatile}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.75}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+    volumes:
+      - veracirag-data:/app/data
+      - veracirag-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      - veracirag-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.veracirag.rule=Host(`veracirag.localhost`)"
+      - "traefik.http.services.veracirag.loadbalancer.server.port=8000"
+
+  # Optional: Redis for caching (production)
+  redis:
+    image: redis:7-alpine
+    container_name: veracirag-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - veracirag-redis:/data
+    networks:
+      - veracirag-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    profiles:
+      - with-cache
+
+  # Optional: Traefik reverse proxy (production)
+  traefik:
+    image: traefik:v2.10
+    container_name: veracirag-traefik
+    restart: unless-stopped
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - veracirag-network
+    profiles:
+      - with-proxy
+
+volumes:
+  veracirag-data:
+    driver: local
+  veracirag-logs:
+    driver: local
+  veracirag-redis:
+    driver: local
+
+networks:
+  veracirag-network:
+    driver: bridge

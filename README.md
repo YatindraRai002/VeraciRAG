@@ -3,65 +3,128 @@
 # 🎯 VeraciRAG
 
 ### Truth-Verified Retrieval Augmented Generation
-**Multi-Agent Self-Correcting RAG System with 82% Accuracy**
+**Industry-Grade Self-Correcting RAG System with Multi-Agent Verification**
 
-[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Ollama](https://img.shields.io/badge/Ollama-Local%20LLMs-00A67E?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.ai/)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Groq](https://img.shields.io/badge/Groq-LLM%20API-F55036?style=for-the-badge)](https://groq.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![Security](https://img.shields.io/badge/Security-A%2B-brightgreen?style=flat-square)](docs/SECURITY.md)
-[![Cost](https://img.shields.io/badge/Cost-%240-success?style=flat-square)](#-cost-savings)
-[![Accuracy](https://img.shields.io/badge/Accuracy-82%25-blue?style=flat-square)](#-performance)
+[![Security](https://img.shields.io/badge/Security-OWASP%20Compliant-brightgreen?style=flat-square)](#-security-features)
+[![Code Style](https://img.shields.io/badge/Code%20Style-Black-black?style=flat-square)](https://github.com/psf/black)
 
 ---
 
-*Enterprise-grade RAG system with multi-agent self-correction, advanced training pipeline, and zero API costs. Deploy anywhere in 5 minutes.*
+*Enterprise-grade RAG system that reduces hallucinations through multi-agent verification and self-correction loops.*
 
-[**🚀 Quick Start**](#-quick-start) • [**📖 Documentation**](#-documentation) • [**🎯 Features**](#-key-features) • [**💻 Production API**](#-production-deployment) • [**📊 Performance**](#-performance)
+[**🚀 Quick Start**](#-quick-start) • [**📖 API Docs**](#-api-endpoints) • [**🏗️ Architecture**](#-architecture) • [**🔒 Security**](#-security-features) • [**📊 Evaluation**](#-evaluation)
 
 </div>
 
 ---
 
-## 🎯 Key Features
+## 🎯 Overview
 
-### 🤖 Multi-Agent Architecture
-- **Guardian Agent** - Filters irrelevant documents
-- **Generator Agent** - Creates accurate answers
-- **Evaluator Agent** - Validates quality & triggers self-correction
-- **Self-correction loop** - Automatically improves answers
+VeraciRAG is an industry-grade Retrieval-Augmented Generation (RAG) system that significantly reduces hallucinations through a multi-agent pipeline with self-correction capabilities.
 
-### 🚀 Production Ready
-- ✅ **FastAPI REST API** - Swagger docs, health checks, metrics
-- ✅ **Docker & Kubernetes** - Deploy anywhere in minutes
-- ✅ **Cloud Templates** - AWS, Azure, GCP ready
-- ✅ **Security Hardened** - API auth, rate limiting, CORS
-- ✅ **Monitoring** - Logs, metrics, health endpoints
+### Key Features
 
-### 🎓 Advanced Training
-- ✅ **82% Accuracy** - Up from 60% baseline (+22%)
-- ✅ **Data Augmentation** - 2.2x training examples
-- ✅ **Curriculum Learning** - 3-iteration progressive training
-- ✅ **Hard Negative Mining** - Improved answer discrimination
-- ✅ **Advanced Metrics** - ROUGE-L, BLEU, F1, Semantic Similarity
+| Feature | Description |
+|---------|-------------|
+| **Multi-Agent Pipeline** | 3 specialized agents: Relevance, Generator, Fact-Check |
+| **Self-Correction Loop** | Automatic answer improvement (max 3 retries) |
+| **Confidence Scoring** | Factual consistency validation with thresholds |
+| **Security Hardened** | OWASP compliant: rate limiting, input validation, API auth |
+| **Production Ready** | Docker support, structured logging, health checks |
+| **Fast Inference** | Powered by Groq's ultra-fast LLM API |
 
-### 💰 Zero Cost
-- 🔒 **100% Local Processing** - No external API calls
-- 💸 **$0 Operating Cost** - Save $11,500/year vs cloud APIs
-- 🛡️ **GDPR/HIPAA Ready** - All data stays on your servers
-- 🌐 **Air-gap Compatible** - Works completely offline
+---
 
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              VeraciRAG Pipeline                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────┐    ┌─────────────────┐    ┌────────────────┐                 │
+│   │  Query   │───▶│  Document Store │───▶│  Relevance     │                 │
+│   │          │    │  (FAISS)        │    │  Agent         │                 │
+│   └──────────┘    │                 │    │                │                 │
+│                   │  • Chunking     │    │  • Score docs  │                 │
+│                   │  • Embedding    │    │  • Filter by   │                 │
+│                   │  • Similarity   │    │    threshold   │                 │
+│                   └─────────────────┘    └───────┬────────┘                 │
+│                                                  │                          │
+│                                                  ▼                          │
+│   ┌──────────┐    ┌─────────────────┐    ┌────────────────┐                 │
+│   │  Answer  │◀───│   Fact-Check    │◀───│   Generator    │                 │
+│   │          │    │   Agent         │    │   Agent        │                 │
+│   └──────────┘    │                 │    │                │                 │
+│        ▲          │  • Consistency  │    │  • Grounded    │                 │
+│        │          │  • Hallucination│    │    generation  │                 │
+│        │          │  • Confidence   │    │  • Source      │                 │
+│        │          └────────┬────────┘    │    attribution │                 │
+│        │                   │             └────────────────┘                 │
+│        │                   ▼                                                │
+│        │          ┌─────────────────┐                                       │
+│        │          │ Confidence      │                                       │
+│        └──────────│ < Threshold?    │──Yes──▶ Self-Correction Loop         │
+│          (Pass)   │                 │         (Max 3 retries)               │
+│                   └─────────────────┘                                       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Agent Responsibilities
+
+| Agent | Role | Output |
+|-------|------|--------|
+| **Relevance Agent** | Filters retrieved documents by relevance to query | Relevance scores, filtered docs |
+| **Generator Agent** | Creates grounded answers from relevant sources | Answer with source attribution |
+| **Fact-Check Agent** | Validates factual consistency, triggers corrections | Confidence score, feedback |
+
+---
+
+## 📁 Project Structure
+
+```
+VeraciRAG/
+├── src/
+│   ├── agents/
+│   │   ├── base.py              # Base agent class
+│   │   ├── relevance_agent.py   # Document relevance filtering
+│   │   ├── generator_agent.py   # Answer generation
+│   │   └── factcheck_agent.py   # Factual consistency validation
+│   ├── api/
+│   │   ├── main.py              # FastAPI application
+│   │   ├── schemas.py           # Pydantic request/response models
+│   │   └── security.py          # Rate limiting, input validation
+│   ├── config/
+│   │   └── settings.py          # Configuration management
+│   ├── core/
+│   │   └── orchestrator.py      # RAG pipeline orchestration
+│   ├── retrieval/
+│   │   └── document_store.py    # FAISS vector store
+│   └── utils/
+│       └── logging.py           # Structured JSON logging
+├── scripts/
+│   └── evaluate.py              # Evaluation and benchmarking
+├── .env.example                 # Environment template
+├── Dockerfile                   # Production Docker image
+├── docker-compose.yml           # Docker Compose config
+└── requirements-new.txt         # Python dependencies
+```
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Python 3.9+**
-- **8GB+ RAM** (16GB recommended)
-- **10GB disk space** (for models)
+
+- Python 3.11+
+- Groq API key ([Get one free](https://console.groq.com/))
 
 ### 1️⃣ Installation
 
@@ -73,599 +136,311 @@ cd VeraciRAG
 # Create virtual environment
 python -m venv .venv
 
-# Activate virtual environment
-# Windows PowerShell:
+# Activate (Windows PowerShell)
 .venv\Scripts\Activate.ps1
-# Linux/Mac:
+
+# Activate (Linux/Mac)
 source .venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements-new.txt
 ```
 
-### 2️⃣ Install Ollama
+### 2️⃣ Configuration
 
 ```bash
-# Windows (PowerShell as Administrator)
-winget install Ollama.Ollama
+# Copy environment template
+cp .env.example .env
 
-# macOS
-brew install ollama
-
-# Linux
-curl https://ollama.ai/install.sh | sh
-
-# Pull the base model
-ollama pull mistral
+# Edit .env with your settings (API key is already set)
 ```
 
-### 3️⃣ Run the System
+### 3️⃣ Run the Server
 
 ```bash
-# Option A: Production API Server
-cd production/docker
-docker-compose up -d
-
-# Access at http://localhost:8000/docs
-
-# Option B: Interactive Demo
-python examples/launcher.py
-
-# Option C: Direct Python
-python examples/simple_ollama_rag.py
+# Start the API server
+python -m src.api.main
 ```
 
-### 4️⃣ Train for Higher Accuracy (Optional)
+The server will start at `http://localhost:8000`
 
-```bash
-# Start Ollama service
-ollama serve
-
-# Run advanced training (60% → 82% accuracy)
-python scripts/training/quick_advanced_training.py
-
-# View results in: training_results/
-```
+- 📚 **API Docs**: http://localhost:8000/docs
+- 🔍 **Health Check**: http://localhost:8000/health
 
 ---
 
-## 💻 Production Deployment
+## 📡 API Endpoints
 
-### 🐳 Docker (5-Minute Deploy)
-
+### Health Check
 ```bash
-cd production/docker
-docker-compose up -d
-
-# API available at http://localhost:8000
-# Swagger docs at http://localhost:8000/docs
+GET /health
 ```
+Returns system status and component health.
 
-### ☸️ Kubernetes
-
+### Query (Main RAG Endpoint)
 ```bash
-kubectl apply -f production/kubernetes/deployment.yaml
+POST /query
+Content-Type: application/json
+X-API-Key: your-api-key
 
-# Auto-scaling: 2-10 replicas
-# Health checks: /health
-# Metrics: /metrics
-```
-
-### ☁️ Cloud Platforms
-
-<details>
-<summary><b>Railway.app (Recommended)</b></summary>
-
-1. Fork this repository
-2. Create Railway account
-3. New Project → Deploy from GitHub
-4. Select VeraciRAG repository
-5. Deploy! 🚀
-
-**Free tier:** 500 hours/month, perfect for testing
-</details>
-
-<details>
-<summary><b>Render.com</b></summary>
-
-```yaml
-# render.yaml
-services:
-  - type: web
-    name: veracirag-api
-    env: docker
-    dockerfilePath: ./production/docker/Dockerfile
-    healthCheckPath: /health
-```
-
-Deploy via Render Dashboard → New Blueprint
-</details>
-
-<details>
-<summary><b>AWS / Azure / GCP</b></summary>
-
-See deployment templates in `production/`:
-- **AWS**: ECS/Fargate deployment
-- **Azure**: Container Apps deployment  
-- **GCP**: Cloud Run deployment
-
-📖 Full guide: [production/README.md](production/README.md)
-</details>
-
-### 🔌 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | API information |
-| `/health` | GET | Health check for monitoring |
-| `/query` | POST | Process RAG query with self-correction |
-| `/documents/add` | POST | Add documents to knowledge base |
-| `/metrics` | GET | Performance metrics |
-| `/docs` | GET | Interactive Swagger documentation |
-
-### 📡 API Example
-
-```python
-import requests
-
-# Query the API
-response = requests.post(
-    "http://localhost:8000/query",
-    json={
-        "query": "What is retrieval augmented generation?",
-        "return_sources": True,
-        "max_retries": 3
-    }
-)
-
-result = response.json()
-print(f"Answer: {result['answer']}")
-print(f"Confidence: {result['confidence']}")
-print(f"Sources: {len(result['sources'])}")
+{
+    "query": "What is machine learning?",
+    "max_retries": 3,
+    "return_sources": true,
+    "confidence_threshold": 0.75
+}
 ```
 
 **Response:**
 ```json
 {
-  "answer": "Retrieval Augmented Generation (RAG) is...",
-  "confidence": 0.89,
-  "sources": [
-    {"content": "RAG combines retrieval...", "metadata": {...}}
-  ],
-  "metadata": {
-    "processing_time_ms": 856.3,
-    "model_used": "mistral",
-    "corrections_made": 1,
-    "timestamp": "2025-11-30T12:34:56"
-  }
+    "answer": "Machine learning is a subset of artificial intelligence...",
+    "confidence": 0.87,
+    "sources": [
+        {
+            "content": "Machine learning is...",
+            "relevance_score": 0.92,
+            "metadata": {"source": "doc_1"}
+        }
+    ],
+    "metadata": {
+        "processing_time_ms": 1250.5,
+        "corrections_made": 0,
+        "documents_retrieved": 5,
+        "documents_used": 3,
+        "model_used": "llama-3.3-70b-versatile"
+    }
 }
 ```
 
+### Add Documents
+```bash
+POST /documents/add
+Content-Type: application/json
+X-API-Key: your-api-key
 
----
-
-## 📖 Documentation
-
-### 📚 User Guides
-
-| Guide | Description | Link |
-|-------|-------------|------|
-| 🚀 **Quick Start** | Get started in 5 minutes | [Above](#-quick-start) |
-| 🎓 **Training Guide** | Improve accuracy to 82% | [TRAINING_COMPLETE.md](TRAINING_COMPLETE.md) |
-| 💻 **Production Deployment** | Deploy to production | [production/README.md](production/README.md) |
-| 🔒 **Security Hardening** | Security best practices | [docs/SECURITY.md](docs/SECURITY.md) |
-| 🎯 **Custom Fine-Tuning** | Create specialized models | [docs/FINE_TUNING_GUIDE.md](docs/FINE_TUNING_GUIDE.md) |
-
-### 🏗️ Architecture Guides
-
-| Topic | Description | Link |
-|-------|-------------|------|
-| 🤖 **Multi-Agent System** | Guardian → Generator → Evaluator | [agents/README.md](agents/README.md) |
-| 🔍 **Retrieval System** | Vector DB & document processing | [retrieval/README.md](retrieval/README.md) |
-| 📊 **Validation & Metrics** | Testing & evaluation | [validation/README.md](validation/README.md) |
-| 🛠️ **Scripts Reference** | Training & utility scripts | [scripts/README.md](scripts/README.md) |
-
-### 💡 Examples
-
-| Example | Description | Link |
-|---------|-------------|------|
-| 🎯 **Simple RAG** | Basic usage example | [examples/simple_ollama_rag.py](examples/simple_ollama_rag.py) |
-| 🚀 **Interactive Launcher** | Menu-driven interface | [examples/launcher.py](examples/launcher.py) |
-| 🎓 **Training Pipeline** | Full training workflow | [scripts/training/](scripts/training/) |
-| 🤖 **Model Fine-Tuning** | Custom model creation | [scripts/models/](scripts/models/) |
-
----
-
-## 📊 Performance
-
-### 🎯 Accuracy Results
-
-| Metric | Baseline | Advanced | Improvement |
-|--------|----------|----------|-------------|
-| **Overall Accuracy** | 60% | **82%** | **+22%** ⬆️ |
-| **ROUGE-L Score** | 0.65 | 0.78 | +0.13 |
-| **BLEU Score** | 0.58 | 0.72 | +0.14 |
-| **F1 Score** | 0.62 | 0.77 | +0.15 |
-| **Semantic Similarity** | 0.60 | 0.75 | +0.15 |
-
-### 📈 Training Improvements
-
-```
-Technique                    Impact
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Data Augmentation (2.2x)     +8%
-Hard Negative Mining          +5%
-Curriculum Learning           +6%
-Advanced Metrics              +3%
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Total Improvement            +22%
+{
+    "documents": [
+        {
+            "content": "Your document text here...",
+            "metadata": {"source": "doc_name.pdf"}
+        }
+    ]
+}
 ```
 
-### ⚡ Performance Metrics
-
-| Metric | Value | Notes |
-|--------|-------|-------|
-| **Processing Time** | ~20 sec/query | With self-correction |
-| **Fast Mode** | ~5 sec/query | Using gemma3:1b |
-| **API Response Time** | <100ms | Without LLM processing |
-| **Memory Usage** | ~4GB | For mistral model |
-| **Cost** | **$0.00** | 100% local processing |
-
-### 🎓 Accuracy by Difficulty
-
-| Question Difficulty | Baseline | Advanced | Improvement |
-|---------------------|----------|----------|-------------|
-| **Easy** (< 0.5 complexity) | 75% | 92% | +17% |
-| **Medium** (0.5-0.7) | 58% | 80% | +22% |
-| **Hard** (≥ 0.7) | 42% | 68% | **+26%** |
-
-*Tested on BioASQ biomedical Q&A dataset (4,719 questions)*
-
----
-
-## 💰 Cost Savings
-
-### Annual Cost Comparison
-
-| Service | Cloud API Cost | VeraciRAG | Savings |
-|---------|---------------|-----------|---------|
-| **LLM API** (GPT-4) | $10,000 | $0 | ✅ $10,000 |
-| **Embeddings API** | $1,000 | $0 | ✅ $1,000 |
-| **Vector Database** | $500 | $0 | ✅ $500 |
-| **Total Annual** | **$11,500** | **$0** | **💰 $11,500** |
-
-### Cost Per 1M Queries
-
-| Platform | Cost | VeraciRAG |
-|----------|------|-----------|
-| OpenAI GPT-4 | ~$30,000 | **$0** |
-| Anthropic Claude | ~$25,000 | **$0** |
-| Google Gemini | ~$20,000 | **$0** |
-
-*Assumes 1M queries at average token usage*
-
-### 🏢 Enterprise Benefits
-
-- ✅ **No per-query charges** - Unlimited usage
-- ✅ **No API rate limits** - Process as fast as your hardware allows
-- ✅ **Data privacy** - All processing on-premises
-- ✅ **Compliance ready** - GDPR, HIPAA, SOC2 compatible
-- ✅ **Offline capable** - Works in air-gapped environments
-
-
----
-
-## 🏗️ Architecture
-
-### Multi-Agent Pipeline
-
-```mermaid
-graph LR
-    A[User Query] --> B[Document Retrieval]
-    B --> C[Guardian Agent]
-    C -->|Filtered Docs| D[Generator Agent]
-    D --> E[Evaluator Agent]
-    E -->|Pass| F[Return Answer]
-    E -->|Fail| G[Self-Correction]
-    G --> D
-```
-
-### System Components
-
-```python
-from examples.simple_ollama_rag import SimpleRAG
-
-# Initialize RAG system
-rag = SimpleRAG(
-    model_name="mistral",           # Base model
-    embedding_model="all-MiniLM-L6-v2",  # Fast embeddings
-    max_retries=3                    # Self-correction attempts
-)
-
-# Add your knowledge base
-rag.add_documents([
-    "Your domain-specific content here...",
-    "Research papers, documentation, etc..."
-])
-
-# Query with self-correction
-result = rag.query("Your question here")
-
-# Access components
-print(f"Answer: {result['answer']}")
-print(f"Confidence: {result['confidence']}")
-print(f"Sources: {result['sources']}")
-```
-
-### 📁 Project Structure
-
-```
-VeraciRAG/
-├── 🤖 agents/              # Multi-agent system
-│   ├── guardian.py        # Document relevance filter
-│   ├── generator.py       # Answer generation
-│   └── evaluator.py       # Quality validation
-│
-├── 🔍 retrieval/          # Document retrieval
-│   ├── vector_store.py    # FAISS vector database
-│   └── embeddings.py      # Embedding generation
-│
-├── 🎓 training/           # Training utilities
-│   ├── dataset_loader.py  # BioASQ, custom datasets
-│   └── evaluator.py       # Training metrics
-│
-├── ✅ validation/         # Testing & metrics
-│   ├── advanced_metrics.py  # ROUGE, BLEU, F1
-│   └── test_suite.py      # Automated tests
-│
-├── 🚀 production/         # Production deployment
-│   ├── api/              # FastAPI server
-│   ├── docker/           # Docker configs
-│   ├── kubernetes/       # K8s manifests
-│   └── config/           # Production settings
-│
-├── 📝 scripts/            # Executable scripts
-│   ├── training/         # Training pipelines
-│   ├── models/           # Model fine-tuning
-│   └── utils/            # Utility scripts
-│
-└── 💡 examples/           # Usage examples
-    ├── launcher.py       # Interactive demo
-    └── simple_ollama_rag.py  # Basic RAG
+### Metrics
+```bash
+GET /metrics
+X-API-Key: your-api-key
 ```
 
 ---
 
-## 🎓 Use Cases
+## 🔒 Security Features
 
-### 🏢 Enterprise Knowledge Management
+### OWASP Compliance
 
-```python
-# Internal documentation Q&A
-rag = SimpleRAG()
-rag.add_documents([
-    "Company policies...",
-    "Technical documentation...",
-    "Compliance requirements..."
-])
+| Feature | Implementation |
+|---------|----------------|
+| **Rate Limiting** | IP-based (60/min) + User-based (30/min) |
+| **Input Validation** | Schema-based with type checking & length limits |
+| **API Authentication** | API key with secure hashing |
+| **Secure Headers** | XSS protection, Content-Type options, HSTS |
+| **Error Handling** | Safe messages, no internal exposure |
+| **Logging** | Sensitive data sanitization |
 
-# Employees can query securely
-answer = rag.query("What is our data retention policy?")
+### Rate Limit Response (429)
+```json
+{
+    "error": "rate_limit_exceeded",
+    "message": "Too many requests. Please slow down.",
+    "retry_after_seconds": 45
+}
 ```
 
-**Benefits:**
-- ✅ No data leaves your infrastructure
-- ✅ Unlimited queries at zero cost
-- ✅ GDPR/HIPAA compliant
-- ✅ Works in air-gapped networks
-
-### 🏥 Healthcare & Medical Research
-
-```python
-# Medical literature search
-rag = SimpleRAG(model_name="mistral")
-rag.add_documents(medical_papers)
-
-# HIPAA-compliant patient data queries
-answer = rag.query("What are treatment options for condition X?")
+### Security Headers
 ```
-
-**Benefits:**
-- ✅ Patient data privacy guaranteed
-- ✅ No PHI sent to external APIs
-- ✅ Medical literature synthesis
-- ✅ Clinical decision support
-
-### 🔬 Academic Research
-
-```python
-# Scientific paper analysis
-rag = SimpleRAG()
-rag.add_documents(research_papers)
-
-# Automated literature review
-answer = rag.query("What methods were used for protein folding?")
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000; includeSubDomains
 ```
-
-**Benefits:**
-- ✅ Process thousands of papers
-- ✅ Citation extraction
-- ✅ Research gap identification
-- ✅ Zero processing costs
-
-### 💼 Financial Services
-
-```python
-# Compliance & regulation Q&A
-rag = SimpleRAG()
-rag.add_documents([regulatory_docs])
-
-# Secure on-premises analysis
-answer = rag.query("What are the reporting requirements for...?")
-```
-
-**Benefits:**
-- ✅ Sensitive financial data stays internal
-- ✅ Real-time compliance checks
-- ✅ Audit trail capabilities
-- ✅ No cloud vendor lock-in
 
 ---
 
-## 🔒 Security & Privacy
+## 🐳 Docker Deployment
 
-### 🛡️ Security Features
-
-| Feature | Status | Description |
-|---------|--------|-------------|
-| **Local Processing** | ✅ | All data stays on your servers |
-| **No External APIs** | ✅ | Zero third-party dependencies |
-| **API Authentication** | ✅ | Secure API key validation |
-| **Rate Limiting** | ✅ | DDoS protection |
-| **CORS Protection** | ✅ | Cross-origin request filtering |
-| **Input Validation** | ✅ | Prevents injection attacks |
-| **Secure Logging** | ✅ | No sensitive data in logs |
-| **HTTPS Ready** | ✅ | TLS/SSL support |
-
-### 🔐 Compliance
-
-- ✅ **GDPR Compliant** - No data transfer to third parties
-- ✅ **HIPAA Compatible** - PHI stays on-premises
-- ✅ **SOC2 Ready** - Audit-friendly architecture
-- ✅ **ISO 27001** - Information security standards
-- ✅ **Air-gap Capable** - Works completely offline
-
-### 🔑 Enable Authentication
-
-```python
-# production/config/production_config.py
-ENABLE_API_AUTH = True
-
-# Generate secure API key
-import secrets
-api_key = secrets.token_urlsafe(32)
-```
+### Quick Start with Docker
 
 ```bash
-# Use with requests
+# Build and run
+docker-compose up -d
+
+# Check logs
+docker-compose logs -f veracirag-api
+
+# Stop
+docker-compose down
+```
+
+### Environment Variables
+
+```bash
+# Required
+GROQ_API_KEY=your_groq_api_key
+
+# Optional (with defaults)
+API_SECRET_KEY=your_secret_key
+ENABLE_API_AUTH=true
+RATE_LIMIT_PER_MINUTE=60
+LOG_LEVEL=INFO
+LLM_MODEL=llama-3.3-70b-versatile
+CONFIDENCE_THRESHOLD=0.75
+MAX_RETRIES=3
+```
+
+---
+
+## 📊 Evaluation
+
+### Run Evaluation Suite
+
+```bash
+python scripts/evaluate.py --output evaluation_report.json
+```
+
+### Sample Evaluation Report
+
+```
+===============================================================
+EVALUATION REPORT
+===============================================================
+
+📈 Accuracy Metrics:
+   • Answer Correctness: 85.0%
+   • Average Confidence: 0.823
+   • Confidence Std Dev: 0.089
+
+⏱️ Latency Metrics:
+   • Average: 2450ms
+   • Median: 2200ms
+   • P95: 3800ms
+
+🔄 Self-Correction Metrics:
+   • Total Corrections: 12
+   • Average per Query: 0.6
+   • Queries with Corrections: 4/10
+
+📚 Source Grounding:
+   • Average Sources Used: 3.2
+   • Grounding Rate: 100.0%
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run tests
+pytest tests/ -v
+
+# Test with coverage
+pytest tests/ --cov=src --cov-report=html
+```
+
+### Manual API Testing
+
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Query (with auth)
 curl -X POST http://localhost:8000/query \
-  -H "X-API-Key: your-secure-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"query": "Your question"}'
+  -H "X-API-Key: your-32-char-api-key-here-xxxxx" \
+  -d '{"query": "What is machine learning?"}'
 ```
-
-📖 **[Full Security Guide](docs/SECURITY.md)**
 
 ---
 
-## 🛠️ Development
+## ⚙️ Configuration
 
-### Running Tests
+### Agent Prompts
+
+Each agent uses carefully crafted prompts:
+
+**Relevance Agent:**
+- Evaluates document relevance on 0.0-1.0 scale
+- Extracts key information from relevant docs
+- Filters by configurable threshold (default: 0.6)
+
+**Generator Agent:**
+- Generates grounded answers from sources only
+- Supports correction mode with feedback
+- No hallucination - acknowledges limitations
+
+**Fact-Check Agent:**
+- Multi-criteria evaluation (factual, completeness, hallucination)
+- Weighted scoring (40/40/20)
+- Provides specific feedback for corrections
+
+### Tuning Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `RELEVANCE_THRESHOLD` | 0.6 | Min score to include document |
+| `CONFIDENCE_THRESHOLD` | 0.75 | Min score to accept answer |
+| `MAX_RETRIES` | 3 | Max self-correction attempts |
+| `TOP_K_DOCUMENTS` | 5 | Documents to retrieve |
+| `CHUNK_SIZE` | 1000 | Document chunk size |
+| `CHUNK_OVERLAP` | 200 | Overlap between chunks |
+
+---
+
+## 🎯 Design Tradeoffs
+
+| Decision | Tradeoff |
+|----------|----------|
+| **Groq (Cloud LLM)** | Fast inference vs. data privacy. Groq is 10x faster than OpenAI. |
+| **FAISS (Vector Store)** | Simplicity vs. scalability. Use Pinecone/Weaviate for >1M docs. |
+| **3-Agent Pipeline** | Accuracy vs. latency. More agents = better quality, higher latency. |
+| **Self-Correction** | Quality vs. cost. Each retry = additional API calls. |
+| **Sentence Transformers** | Local embeddings = free, but slower than API embeddings. |
+
+---
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please read our contributing guidelines.
 
 ```bash
-# Run test suite
-python -m pytest tests/
+# Fork and clone
+git clone https://github.com/your-username/VeraciRAG.git
 
-# Security audit
-python scripts/utils/security_audit.py
+# Create feature branch
+git checkout -b feature/your-feature
 
-# Verify setup
-python scripts/utils/verify_setup.py
+# Make changes, test, commit
+pytest tests/
+git commit -m "feat: your feature"
+
+# Push and create PR
+git push origin feature/your-feature
 ```
 
-### Contributing
-
-See individual directory READMEs for contribution guidelines:
-- [Scripts README](scripts/README.md)
-- [Examples README](examples/README.md)
-- [Tests README](tests/README.md)
-
 ---
 
-## 📦 Requirements
+<div align="center">
 
-- **Python 3.9+**
-- **Ollama** (for local LLMs)
-- **8GB+ RAM** (16GB recommended)
-- **10GB disk space** (for models)
+**Built with ❤️ for accurate, trustworthy AI**
 
-Full dependencies in [`requirements.txt`](requirements.txt)
+[Report Bug](https://github.com/YatindraRai002/VeraciRAG/issues) • [Request Feature](https://github.com/YatindraRai002/VeraciRAG/issues)
 
----
-
-## 🎯 Roadmap
-
-- [x] ✅ Three-agent RAG system
-- [x] ✅ Local training pipeline
-- [x] ✅ Custom model fine-tuning
-- [x] ✅ Security hardening
-- [x] ✅ Comprehensive documentation
-- [x] ✅ Project reorganization
-- [ ] ⏳ Web UI interface
-- [ ] ⏳ Multi-language support
-- [ ] ⏳ Advanced retrieval strategies
-- [ ] ⏳ Benchmarking suite
-
----
-
-## 📞 Support
-
-- 📖 **Documentation:** [docs/](docs/)
-- 🔒 **Security:** [docs/SECURITY.md](docs/SECURITY.md)
-- 🎓 **Training:** [docs/FREE_TRAINING_GUIDE.md](docs/FREE_TRAINING_GUIDE.md)
-- 📁 **Structure:** [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
-
----
-
-
-## 🙏 Acknowledgments
-
-- **Ollama** - Local LLM runtime
-- **LangChain** - RAG framework
-- **FAISS** - Vector similarity search
-- **HuggingFace** - Datasets and models
-
----
-
-## 🌟 Star History
-
-If you find this project useful, please ⭐ star it on GitHub!
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Last Updated:** November 30, 2025
-#
+</div>

@@ -1,0 +1,13 @@
+# Ignore everything
+*
+
+# Allow specific files and folders
+!src/
+!scripts/
+!requirements.txt
+!.env.example
+
+# Ignore Python cache in allowed folders
+**/__pycache__
+**/*.pyc
+**/*.pyo
