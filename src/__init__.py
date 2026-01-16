@@ -1,3 +1,0 @@
-"""
-VeraciRAG Source Package
-"""
