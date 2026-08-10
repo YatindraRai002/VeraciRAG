@@ -1,4 +1,4 @@
-# VeraciRAG 🚀
+# VeraciRAG 
 
 **Self-Correcting RAG Platform with Multi-Agent Verification**
 
